@@ -107,6 +107,7 @@ response.setDateHeader ("Expires", -1);
 
 <!-- header-start -->
 		<header>
+
 			<div class="header-top-area ptb-10 hidden-xs">
 				<div class="container">
 					<div class="row">
@@ -154,7 +155,7 @@ response.setDateHeader ("Expires", -1);
 						                		<c:when test="${not empty requestScope.MERCHANT_STORE.storeLogo}">
 						                			<!--  use merchant store logo -->
 						                			<a class="grey store-name" href="<c:url value="/shop/"/>">
-<%--						                			<img class="logoImage" src="<sm:storeLogo/>"/>--%>
+						                			<img class="logoImage" src="<sm:storeLogo/>"/>
 						                			</a>
 						                		</c:when>
 						                		<c:otherwise>
@@ -206,13 +207,13 @@ response.setDateHeader ("Expires", -1);
 							</c:if>
 						    <!-- Shopping cart -->
 						    <c:if test="${requestScope.CONFIGS['allowPurchaseItems'] == true}">
-								<div class="header-bottom-right">
-									<div class="shop-cart" id="miniCartSummary"></div>
-									<div class="shop-cart-hover fix">
+							<div class="header-bottom-right">
+								<div class="shop-cart" id="miniCartSummary"></div>
+								<div class="shop-cart-hover fix">
 									<ul id="miniCartDetails"></ul>
-									</div>
 								</div>
-							</c:if>
+							</div>
+						</c:if>
 						</div>
 					</div>
 				</div>

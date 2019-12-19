@@ -9,9 +9,9 @@ response.setDateHeader ("Expires", -1);
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="s" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
-<%@ taglib uri="/WEB-INF/shopizer-tags.tld" prefix="sm" %> 
-<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %> 
- 
+<%@ taglib uri="/WEB-INF/shopizer-tags.tld" prefix="sm" %>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
+ z
 <%@page contentType="text/html"%>
 <%@page pageEncoding="UTF-8"%>
 
@@ -21,7 +21,7 @@ response.setDateHeader ("Expires", -1);
 				<div class="row">
 					<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 mar_b-30">
 						<div class="footer-wrapper">
-							<c:if test="${requestScope.CONFIGS['displayStoreAddress'] == true}"> 
+							<c:if test="${requestScope.CONFIGS['displayStoreAddress'] == true}">
 							<ul>
 								<jsp:include page="/pages/shop/common/preBuiltBlocks/storeAddress.jsp"/>
 								<c:if test="${requestScope.CONTENT['contactUsDetails']!=null}">
@@ -30,7 +30,7 @@ response.setDateHeader ("Expires", -1);
 								</c:if>
 							</ul>
 							</c:if>
-							
+
 							<c:if test="${requestScope.CONFIGS['facebook_page_url'] != null || requestScope.CONFIGS['twitter_handle'] != null || requestScope.CONFIGS['pinterest'] != null || requestScope.CONFIGS['instagram'] != null}">
 							   <ul class="footer-social">
 							       <c:if test="${requestScope.CONFIGS['twitter_handle'] != null}">
@@ -66,10 +66,10 @@ response.setDateHeader ("Expires", -1);
 									</li>
 									<c:forEach items="${requestScope.TOP_CATEGORIES}" var="category">
 								   <li>
-	    								<a href="<c:url value="/shop/category/${category.description.friendlyUrl}.html"/><sm:breadcrumbParam categoryId="${category.id}"/>" class="current"> 
+	    								<a href="<c:url value="/shop/category/${category.description.friendlyUrl}.html"/><sm:breadcrumbParam categoryId="${category.id}"/>" class="current">
 	    									<span class="name">${category.description.name}</span>
 	    								</a>
-	    							</li> 
+	    							</li>
 									</c:forEach>
 								    <c:forEach items="${requestScope.CONTENT_PAGE}" var="content">
 											   <li><a href="<c:url value="/shop/pages/${content.seUrl}.html"/>" class="current">${content.name}</a></li>

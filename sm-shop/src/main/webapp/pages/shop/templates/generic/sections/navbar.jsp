@@ -21,7 +21,7 @@ response.setDateHeader ("Expires", -1);
 
 <script type="text/javascript">
 //***** Search code *****
-$(document).ready(function() { 
+$(document).ready(function() {
 
     //post search form
    $(".searchButton").click(function(e){
@@ -38,9 +38,9 @@ $(document).ready(function() {
 	        $('#hiddenSearchForm').attr('action',res).submit();
    });
 
-   
-   
-	
+
+
+
    var searchElements = new Bloodhound({
 		datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
 		queryTokenizer: Bloodhound.tokenizers.whitespace,
@@ -60,15 +60,15 @@ $(document).ready(function() {
         	}
     	}
 	});
-   
+
    searchElements.initialize();
 
 
 	var searchTemplate =  Hogan.compile([
 				     '<p class="suggestion-text"><font color="black">{{value}}</font></p>'
 	             ].join(''));
-	
-	
+
+
     //full view search
 	$('#searchField.typeahead').typeahead({
 	    hint: true,
@@ -82,7 +82,7 @@ $(document).ready(function() {
 	    	suggestion: function (data) { return searchTemplate.render(data); }
 	    }
 	});
-    
+
     //responsive
 	$('#responsiveSearchField.typeahead').typeahead({
 	    hint: true,
@@ -100,8 +100,97 @@ $(document).ready(function() {
 });
 
 </script>
+<%----%>
+<nav class="navbar navbar-default" style="box-shadow: -2px 2px 6px 4px cadetblue;">
+	<div class="container">
+		<!-- Brand and toggle get grouped for better mobile display -->
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+<%--			--%>
+
+<%--			--%>
+			<a class="navbar-brand" href="#">
+
+				<c:choose>
+					<c:when test="${requestScope.CONTENT['logo']!=null}">
+						<!-- A content logo exist -->
+						<sm:pageContent contentCode="logo"/>
+					</c:when>
+					<c:otherwise>
+						<c:choose>
+							<c:when test="${not empty requestScope.MERCHANT_STORE.storeLogo}">
+								<!--  use merchant store logo -->
+								<a class="grey store-name" href="<c:url value="/shop/"/>">
+									<img class="logoImage" src="<sm:storeLogo/>"/>
+								</a>
+							</c:when>
+							<c:otherwise>
+								<!-- Use store name -->
+								<h1>
+									<a class="grey store-name" href="<c:url value="/shop/"/>">
+										<c:out value="${requestScope.MERCHANT_STORE.storename}"/>
+									</a>
+								</h1>
+							</c:otherwise>
+						</c:choose>
+					</c:otherwise>
+				</c:choose>
+			</a>
+		</div>
+
+		<!-- Collect the nav links, forms, and other content for toggling -->
+		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="display: grid;">
+			<ul class="nav navbar-nav">
+<%--				--%>
+	<c:set var="code" value="${category.code}"/>
+	<c:forEach items="${requestScope.TOP_CATEGORIES}" var="category">
+		<li class="<sm:activeLink linkCode="${category.description.friendlyUrl}" activeReturnCode="active"/>"><a href="<c:url value="/shop/category/${category.description.friendlyUrl}.html"/><sm:breadcrumbParam categoryId="${category.id}"/>"><c:out value="${category.description.name}"/></a>
+			<c:if test="${fn:length(category.children)>0}">
+				<ul>
+					<c:forEach items="${category.children}" var="child">
+						<li><a href="<c:url value="/shop/category/${child.description.friendlyUrl}.html"/><sm:breadcrumbParam categoryId="${child.id}"/>"><c:out value="${child.description.name}"/></a></li>
+					</c:forEach>
+				</ul>
+			</c:if>
+		</li>
+	</c:forEach>
+	<c:forEach items="${requestScope.CONTENT_PAGE}" var="content">
+		<c:if test="${content.content.linkToMenu}">
+			<li><a href="<c:url value="/shop/pages/${content.seUrl}.html"/>" class="current">${content.name}</a></li>
+		</c:if>
+	</c:forEach>
+<%--				--%>
+			</ul>
+			<form class="navbar-form navbar-left" role="search">
+				<div class="form-group">
+<%--					--%>
+
+	<c:if test="${requestScope.CONFIGS['displaySearchBox'] == true}">
+
+	<div class="input-group menu-search-box">
+		<input type="text" class="form-control typeahead" type="search" name="q" id="searchField" placeholder="<s:message code="label.generic.search" text="Search"/>" value="" />
+		<span class="input-group-btn">
+        							<button class="btn btn-default searchButton" type="submit"><s:message code="label.generic.search" text="Search"/></button>
+   								</span>
+		<!-- important for submitting search -->
+		<form id="hiddenSearchForm" method="post" action="<c:url value="/shop/search/search.html"/>">
+			<input type="hidden" id="hiddenQuery" name="q">
+		</form>
+	</div>
 
 
+	</c:if>
+<%--					--%>
+			</form>
+
+		</div><!-- /.navbar-collapse -->
+	</div><!-- /.container-fluid -->
+</nav>
 <!-- mainmenu-area-start -->
 		<div class="mainmenu-area bg-color-1" id="main_h">
 			<div class="container">
@@ -116,7 +205,7 @@ $(document).ready(function() {
 										<c:if test="${fn:length(category.children)>0}">
 										<ul>
 											<c:forEach items="${category.children}" var="child">
-												<li><a href="<c:url value="/shop/category/${child.description.friendlyUrl}.html"/><sm:breadcrumbParam categoryId="${child.id}"/>"><c:out value="${child.description.name}"/></a></li>		
+												<li><a href="<c:url value="/shop/category/${child.description.friendlyUrl}.html"/><sm:breadcrumbParam categoryId="${child.id}"/>"><c:out value="${child.description.name}"/></a></li>
 											</c:forEach>
 										</ul>
 										</c:if>
@@ -148,7 +237,7 @@ $(document).ready(function() {
 										<c:if test="${fn:length(category.children)>0}">
 										<ul>
 											<c:forEach items="${category.children}" var="child">
-												<li><a href="<c:url value="/shop/category/${child.description.friendlyUrl}.html"/><sm:breadcrumbParam categoryId="${child.id}"/>"><c:out value="${child.description.name}"/></a></li>		
+												<li><a href="<c:url value="/shop/category/${child.description.friendlyUrl}.html"/><sm:breadcrumbParam categoryId="${child.id}"/>"><c:out value="${child.description.name}"/></a></li>
 											</c:forEach>
 										</ul>
 										</c:if>
